@@ -1,0 +1,32 @@
+Steps to create Contact List app
+
+Tech Stack:
+Frontend:
+	React, JavaScript
+
+Backend:
+	Python, Flask
+
+1. First Create a workspace
+2. Inside the workspace create a backend folder 
+	In the terminal, goto the workspace directory and enter this command 'npm create vite@latest frontend --template react'
+	this command will create a react app inside the frontend folder 
+	
+	After creating react app change directory to frontend and install npm
+	
+	Typically when you build an application like this you want to build the backend or API first
+	
+	We are going to create a CRUD backend
+	
+	To build backend change the directory to backend folder and enter this command 'pip3 install Flask'
+	
+	And enter this command 'pip3 install Flask-SQLAlchemy' this known as Object Relational Mapping (ORM) which allows us to connect to the SQL DB and map 
+	the entries and SQL into Python Objects so we can operate on our objects easier.
+	
+	And finally install 'pip3 install flask-cors' this is used to allow us to cross origin requests, 
+	
+	In backend folder create main.py, config.py and models.py
+	
+	config.py -> will contain the main configuration of our application
+	main.py -> will contain the main routes or main endpoints
+	models.py -> will contain all of our database models
