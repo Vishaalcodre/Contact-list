@@ -15,7 +15,7 @@ def get_contacts():
     return jsonify({"contacts": json_contacts}), 200
 
 #Create Contacts Decorator
-@app.route("/create_contact", method=["POST"])
+@app.route("/create_contact", methods=["POST"])
 def create_contact():
     first_name = request.json.get("firstName")
     last_name = request.json.get("lastName")
@@ -45,7 +45,7 @@ def create_contact():
     )
 
 #Update Decorator
-@app.route("/update_contact/<int:user_id>", method=["PATCH"])
+@app.route("/update_contact/<int:user_id>", methods=["PATCH"])
 def update_contact(user_id):
     contact = Contact.query.get(user_id)
 
@@ -66,7 +66,7 @@ def update_contact(user_id):
     return jsonify({"message": "Contact Updated!"}), 200
 
 #Delete decorator
-@app.route("/delete_contact/<int:user_id>", method=["DELETE"])
+@app.route("/delete_contact/<int:user_id>", methods=["DELETE"])
 def delete_contact(user_id):
     contact = Contact.query.get(user_id)
 
