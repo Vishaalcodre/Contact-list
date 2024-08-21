@@ -23,6 +23,7 @@ def create_contact():
 
     if not first_name or not last_name or not email:
         return(
+            #Converts the python object into json object and Returns the data
             jsonify({"message": "You must include first name, last name and email"}), 400
         )
     
@@ -39,6 +40,7 @@ def create_contact():
         return jsonify({"message": str(e)}), 400
     
     return(
+        #Converts the python object into json object and Returns the data
         jsonify({"message": "Contact Created!"}), 201
     )
 
@@ -57,8 +59,10 @@ def update_contact(user_id):
     contact.last_name = data.get("lastName", contact.last_name)
     contact.email = data.get("email", contact.email)
 
+    #Storing the updated data in the DB
     db.session.commit()
 
+    #Converts the python object into json object and Returns the data
     return jsonify({"message": "Contact Updated!"}), 200
 
 #Delete decorator
@@ -70,8 +74,11 @@ def delete_contact(user_id):
         return jsonify({"messabe": "Contact not found"}), 404
     
     db.session.delete(contact)
+    
+    #Storing the updated data in the DB
     db.session.commit()
 
+    #Converts the python object into json object and Returns the data
     return jsonify({"message": "Contact Deleted!"}), 200
 
 if __name__ == "__main__":
