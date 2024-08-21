@@ -61,6 +61,19 @@ def update_contact(user_id):
 
     return jsonify({"message": "Contact Updated!"}), 200
 
+#Delete decorator
+@app.route("/delete_contact/<int:user_id>", method=["DELETE"])
+def delete_contact(user_id):
+    contact = Contact.query.get(user_id)
+
+    if not contact:
+        return jsonify({"messabe": "Contact not found"}), 404
+    
+    db.session.delete(contact)
+    db.session.commit()
+
+    return jsonify({"message": "Contact Deleted!"}), 200
+
 if __name__ == "__main__":
     with app.app_context():
         #To create Database
