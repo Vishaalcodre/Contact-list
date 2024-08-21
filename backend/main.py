@@ -29,15 +29,37 @@ def create_contact():
     new_contact = Contact(first_name= first_name, last_name= last_name, email= email)
 
     try:
+        #Adding the new contact in the DB
         db.session.add(new_contact)
+
+        #Storing the data in the DB
         db.session.commit()
 
     except Exception as e:
         return jsonify({"message": str(e)}), 400
     
     return(
-        jsonify({"message": "User Created!"}), 201
+        jsonify({"message": "Contact Created!"}), 201
     )
+
+#Update Decorator
+@app.route("/update_contact/<int:user_id>", method=["PATCH"])
+def update_contact(user_id):
+    contact = Contact.query.get(user_id)
+
+    if not contact:
+        return jsonify({"message": "Contact not found"}), 404
+    
+    data = request.json
+
+    #if the value is updated contact will be updating new value if not the old value is saved to the contact
+    contact.first_name = data.get("firstName", contact.first_name)
+    contact.last_name = data.get("lastName", contact.last_name)
+    contact.email = data.get("email", contact.email)
+
+    db.session.commit()
+
+    return jsonify({"message": "Contact Updated!"}), 200
 
 if __name__ == "__main__":
     with app.app_context():
