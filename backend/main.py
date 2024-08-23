@@ -38,12 +38,15 @@ def create_contact():
         #Storing the data in the DB
         db.session.commit()
 
+        print(new_contact)
+
     except Exception as e:
         return jsonify({"message": str(e)}), 400
     
     return(
         #Converts the python object into json object and Returns the data
         jsonify({"message": "Contact Created!"}), 201
+        
     )
 
 #Update Decorator

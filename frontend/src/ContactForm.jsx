@@ -1,42 +1,44 @@
 import { useState } from "react";
 
-const ContactForm = ({}) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+const ContactForm = ({ existingContact = {}, updateCallback }) => {
+  const [firstName, setFirstName] = useState(existingContact.firstName || "");
+  const [lastName, setLastName] = useState(existingContact.lastName || "");
+  const [email, setEmail] = useState(existingContact.email || "");
+
+  const updating = Object.entries(existingContact).length !== 0;
 
   const onSubmit = async (e) => {
     //Avoid Refreshing page automatically
-    e.preventDefault()
+    e.preventDefault();
 
     const data = {
-        firstName,
-        lastName,
-        email,
-    }
+      firstName,
+      lastName,
+      email,
+    };
 
-    const url = "http://127.0.0.1:5000/create_contact"
+    const url =
+      "http://127.0.0.1:5000/" +
+      (updating ? `update_contact/${existingContact.id}` : "create_contact");
 
     const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    }
+      method: updating ? "PATCH" : "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
 
-    const response = await fetch(url, options)
+    const response = await fetch(url, options);
     if (response.status !== 201 && response.status !== 200) {
-        const data = await response.json()
-        alert(data.message)
-    }
-    else {
-        //successful message
-        
-
+      const data = await response.json();
+      alert(data.message);
+    } else {
+      //successful message
+      updateCallback();
     }
     console.log(data);
-  }
+  };
 
   return (
     <form onSubmit={onSubmit}>
@@ -71,7 +73,7 @@ const ContactForm = ({}) => {
         />
       </div>
       <button type="submit">
-        Create Contact
+        {updating ? "Update Contact" : "Create Contact"}
       </button>
     </form>
   );
