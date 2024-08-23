@@ -39,8 +39,8 @@ const ContactList = ({contacts, updateContact, updateCallback}) => {
             <tbody>
                 {contacts.map((contact) => (
                     <tr key={contact.id}>
-                        <td>{contact.firstName}</td>
-                        <td>{contact.lastName}</td>
+                        <td>{contact.first_name}</td>
+                        <td>{contact.last_name}</td>
                         <td>{contact.email}</td>
                         <td>
                             <button onClick={() => updateContact(contact)}>Update</button>
