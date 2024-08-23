@@ -13,6 +13,8 @@ def get_contacts():
 
     #Converts the python object into json object and Returns the data
     return jsonify({"contacts": json_contacts}), 200
+        
+
 
 #Create Contacts Decorator
 @app.route("/create_contact", methods=["POST"])
